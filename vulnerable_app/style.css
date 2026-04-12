@@ -1,0 +1,265 @@
+/* =========================================================
+   style.css  –  Shared styles for both apps
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ── Reset & Base ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --bg-dark:     #0d0f1a;
+    --bg-card:     #161827;
+    --bg-input:    #1e2135;
+    --accent:      #6c63ff;
+    --accent-glow: rgba(108, 99, 255, 0.35);
+    --danger:      #ff4757;
+    --success:     #2ed573;
+    --text-primary: #e8eaf0;
+    --text-muted:   #7b7f9e;
+    --border:       rgba(255,255,255,0.08);
+    --radius:       14px;
+    --shadow:       0 24px 60px rgba(0,0,0,0.55);
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    background-image:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(108,99,255,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 90% 90%,  rgba(46,213,115,0.06) 0%, transparent 60%);
+}
+
+/* ── Card ─────────────────────────────────────────────── */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2.8rem 2.6rem;
+    width: 100%;
+    max-width: 420px;
+    animation: fadeUp 0.5s ease both;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Logo / Badge ─────────────────────────────────────── */
+.app-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 1.6rem;
+}
+.app-badge.vulnerable {
+    background: rgba(255,71,87,0.15);
+    color: var(--danger);
+    border: 1px solid rgba(255,71,87,0.3);
+}
+.app-badge.secure {
+    background: rgba(46,213,115,0.12);
+    color: var(--success);
+    border: 1px solid rgba(46,213,115,0.25);
+}
+
+.card h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.35rem;
+    color: #fff;
+}
+
+.card .subtitle {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+/* ── Form Elements ────────────────────────────────────── */
+.form-group {
+    margin-bottom: 1.1rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.form-group input::placeholder { color: var(--text-muted); opacity: 0.6; }
+
+.form-group input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* ── Submit Button ────────────────────────────────────── */
+.btn {
+    width: 100%;
+    padding: 0.78rem;
+    margin-top: 0.5rem;
+    background: linear-gradient(135deg, #6c63ff 0%, #8a5cf6 100%);
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(108,99,255,0.4);
+}
+.btn:hover  { transform: translateY(-1px); box-shadow: 0 8px 28px rgba(108,99,255,0.55); }
+.btn:active { transform: translateY(0); }
+
+/* ── Result Page ──────────────────────────────────────── */
+.result-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2.4rem 2.6rem;
+    width: 100%;
+    max-width: 700px;
+    animation: fadeUp 0.4s ease both;
+}
+
+.result-card h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.success-msg { color: var(--success); }
+.error-msg   { color: var(--danger); }
+
+.query-box {
+    background: #0a0b12;
+    border: 1px solid rgba(108,99,255,0.3);
+    border-radius: 8px;
+    padding: 0.9rem 1.1rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+    color: #a78bfa;
+    word-break: break-all;
+    margin: 1rem 0;
+}
+
+.query-box .label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+    font-family: inherit;
+}
+
+table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: 0.88rem;
+}
+
+table.data-table th {
+    background: rgba(108,99,255,0.2);
+    color: #a78bfa;
+    padding: 0.6rem 0.9rem;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(108,99,255,0.3);
+}
+
+table.data-table td {
+    padding: 0.55rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+table.data-table tr:hover td { background: rgba(255,255,255,0.03); }
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1.4rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+.back-link:hover { opacity: 0.75; }
+
+.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.2rem 0;
+}
+
+.info-box {
+    background: rgba(108,99,255,0.08);
+    border: 1px solid rgba(108,99,255,0.2);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 1rem;
+}
+
+.warning-box {
+    background: rgba(255,71,87,0.08);
+    border: 1px solid rgba(255,71,87,0.25);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    font-size: 0.82rem;
+    color: #ff8a95;
+    line-height: 1.6;
+    margin-top: 1rem;
+}
+
+footer {
+    margin-top: 1.5rem;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-align: center;
+}
