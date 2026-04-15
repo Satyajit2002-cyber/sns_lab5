@@ -16,7 +16,7 @@ SQL Injection (SQLi) is a code injection technique where an attacker inserts or 
 $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
 ```
 
-When a user types `' OR '1'='1' -- ` as username, the query becomes:
+When a user types `' OR '1'='1' -- ` as username and anything as password, the query becomes:
 ```sql
 SELECT * FROM users WHERE username='' OR '1'='1' -- ' AND password='...'
 ```
@@ -29,7 +29,7 @@ The `-- ` comments out the rest of the query. Since `'1'='1'` is always true, th
 ### 2.1 Authentication Bypass
 **Payload:**
 - Username: `' OR '1'='1' -- `
-- Password: `anything`
+- Password: anything
 
 **Resulting Query:**
 ```sql

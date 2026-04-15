@@ -30,7 +30,7 @@
                 type="text"
                 id="username"
                 name="username"
-                placeholder="e.g. user1  or  ' OR '1'='1' --"
+                placeholder="e.g. user1 or ' OR '1'='1' -- "
                 required
                 autocomplete="off"
             >
@@ -51,6 +51,7 @@
     <div class="info-box" style="margin-top:1.4rem">
         <strong style="color:#a78bfa">Valid credentials:</strong><br>
         user1 / pass1 &nbsp;|&nbsp; admin / admin123
+        <br><small style="color:#7b7f9e">Bypass payload: username = ' OR '1'='1' --  and password can be anything</small>
     </div>
 </div>
 

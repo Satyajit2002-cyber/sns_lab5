@@ -71,7 +71,8 @@ Then access: **http://localhost/sns_lab5/secure_app/**
 ### Attack 1 — Authentication Bypass
 - **URL:** `http://localhost/sns_lab5/vulnerable_app/`
 - **Username:** `' OR '1'='1' -- `
-- **Password:** `anything`
+- **Password:** anything
+- **Note:** Keep the trailing space after `--` and do not add an extra quote.
 - **Effect:** Logs in without valid credentials
 
 ### Attack 2 — UNION-Based Injection (extract all users)
