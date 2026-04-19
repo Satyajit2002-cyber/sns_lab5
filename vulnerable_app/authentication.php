@@ -14,6 +14,9 @@
 
 include 'connection.php';
 
+// Keep this demo page from crashing on invalid injection payloads.
+mysqli_report(MYSQLI_REPORT_OFF);
+
 // --- Retrieve raw user input (NO sanitization — intentionally vulnerable) ---
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
@@ -24,7 +27,14 @@ $password = $_POST['password'] ?? '';
 $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
 
 // Use multi_query to allow stacked queries (INSERT / UPDATE via injection)
-$queryResult = mysqli_multi_query($conn, $sql);
+$queryResult = false;
+$mysqlError = '';
+
+if (@mysqli_multi_query($conn, $sql)) {
+    $queryResult = true;
+} else {
+    $mysqlError = mysqli_error($conn);
+}
 
 // Collect first result set
 $result = false;
@@ -46,9 +56,6 @@ if ($result && mysqli_num_rows($result) > 0) {
 }
 
 $loginSuccess = count($rows) > 0;
-
-// Capture any MySQL error for educational display
-$mysqlError = mysqli_error($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -120,7 +127,8 @@ $mysqlError = mysqli_error($conn);
     <div class="info-box" style="margin-top:1.4rem">
         <strong style="color:#a78bfa">Attack Payloads Reference:</strong><br><br>
         <code style="color:#ff8a95">Auth Bypass:</code>
-        Username: <code>' OR '1'='1' -- </code><br><br>
+        Username: <code>' OR '1'='1' -- </code> / Password: <code>anything</code><br>
+        <span style="color:#7b7f9e">Keep the space after <code>--</code> and do not add a trailing quote.</span><br><br>
         <code style="color:#ff8a95">Union Injection:</code>
         Username: <code>' UNION SELECT id,username,password FROM users -- </code><br><br>
         <code style="color:#ff8a95">Blind (True):</code>

